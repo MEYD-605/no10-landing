@@ -68,3 +68,31 @@ html[data-theme="white"] {
   --color-patina: oklch(35% 0.09 188);
 }
 
+/* Scrollbar Styling */
+@layer base {
+  html {
+    scrollbar-color: var(--color-graphite) var(--color-lacquer-deep);
+    scrollbar-width: thin;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-lacquer-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-graphite);
+  border: 2.5px solid var(--color-lacquer-deep);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+
