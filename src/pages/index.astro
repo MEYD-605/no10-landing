@@ -39,7 +39,7 @@ const posts = (await getCollection('blog')).sort(
 			{/* Bento Grid */}
 			<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
 				{/* Tile 1: Active Services */}
-				<div class="bg-raised border border-gold/15 rounded-xs p-6 space-y-4 md:col-span-2">
+				<div class="bg-raised border border-gold/15 hover:border-gold/45 hover:shadow-[0_8px_30px_rgb(0_0_0/0.4)] rounded-xs p-6 space-y-4 md:col-span-2 transition-all duration-300">
 					<div class="flex items-center justify-between border-b border-gold/10 pb-3">
 						<h2 class="text-xl font-display font-bold tracking-wide text-champagne">
 							Active Services & Daemons
@@ -85,7 +85,7 @@ const posts = (await getCollection('blog')).sort(
 				</div>
 
 				{/* Tile 2: Operational Credo */}
-				<div class="bg-raised border border-gold/15 rounded-xs p-6 space-y-4">
+				<div class="bg-raised border border-gold/15 hover:border-gold/45 hover:shadow-[0_8px_30px_rgb(0_0_0/0.4)] rounded-xs p-6 space-y-4 transition-all duration-300">
 					<div class="border-b border-gold/10 pb-3">
 						<h2 class="text-xl font-display font-bold tracking-wide text-champagne">
 							Operational Credo
@@ -148,7 +148,7 @@ const posts = (await getCollection('blog')).sort(
 				</div>
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 					{posts.slice(0, 3).map((post) => (
-						<article class="bg-raised/50 hover:bg-raised border border-gold/10 hover:border-gold/30 rounded-xs p-6 flex flex-col justify-between transition-all space-y-4">
+						<article class="bg-raised/50 hover:bg-raised border border-gold/10 hover:border-gold/45 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0_0_0/0.4)] rounded-xs p-6 flex flex-col justify-between transition-all duration-300 space-y-4">
 							<div class="space-y-2">
 								<span class="text-sm font-mono text-text-muted">
 									<FormattedDate date={post.data.pubDate} />
