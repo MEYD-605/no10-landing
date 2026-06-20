@@ -17,9 +17,18 @@ import HeaderLink from './HeaderLink.astro';
 			</h2>
 		</div>
 		<div class="flex items-center space-x-6 text-sm text-text-warm font-medium">
-			<HeaderLink href="/" class="hover:text-gold transition-colors py-1">Home</HeaderLink>
-			<HeaderLink href="/blog" class="hover:text-gold transition-colors py-1">Blog</HeaderLink>
-			<HeaderLink href="/about" class="hover:text-gold transition-colors py-1">About</HeaderLink>
+			<HeaderLink href="/" class="hover:text-gold transition-colors py-1">Home / หน้าหลัก</HeaderLink>
+			<HeaderLink href="/blog" class="hover:text-gold transition-colors py-1">Blog / บล็อก</HeaderLink>
+			<HeaderLink href="/about" class="hover:text-gold transition-colors py-1">About / ประวัติ</HeaderLink>
+			
+			{/* Theme Selector */}
+			<div class="relative inline-block text-left font-mono text-[10px]">
+				<select id="theme-selector" class="bg-raised border border-gold/20 text-gold rounded-xs px-2 py-0.5 focus:outline-none focus:border-gold cursor-pointer" aria-label="Theme Selector">
+					<option value="dark">Dark 🖤</option>
+					<option value="light">Light 🍦</option>
+					<option value="white">White ⚪</option>
+				</select>
+			</div>
 			
 			<a href="https://github.com/MEYD-605/no10-landing" target="_blank" class="text-text-muted hover:text-gold transition-colors p-1" aria-label="GitHub">
 				<svg viewBox="0 0 16 16" aria-hidden="true" width="20" height="20" fill="currentColor">
@@ -29,4 +38,17 @@ import HeaderLink from './HeaderLink.astro';
 		</div>
 	</nav>
 </header>
+
+<script is:inline>
+	const select = document.getElementById('theme-selector');
+	if (select) {
+		const currentTheme = localStorage.getItem('theme') || 'dark';
+		select.value = currentTheme;
+		select.addEventListener('change', (e) => {
+			const theme = e.target.value;
+			document.documentElement.setAttribute('data-theme', theme);
+			localStorage.setItem('theme', theme);
+		});
+	}
+</script>
 
