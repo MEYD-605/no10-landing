@@ -48,7 +48,7 @@ export default function Web3Terminal() {
             <p className="text-text-muted mb-4">Connect on-chain signature key to access decentralized console.</p>
             <button
               onClick={connectWallet}
-              className="px-6 py-2 bg-gold text-lacquer-deep font-sans font-medium rounded-xs hover:bg-gold-rich transition-colors cursor-pointer"
+              className="px-6 py-2 bg-gold text-[oklch(7%_0.006_95)] font-sans font-medium rounded-xs hover:bg-gold-rich transition-colors cursor-pointer"
             >
               Connect Wallet
             </button>

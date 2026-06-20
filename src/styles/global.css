@@ -46,9 +46,9 @@ html[data-theme="light"] {
   --color-text-muted: oklch(45% 0.006 95);
   --color-text-faint: oklch(58% 0.006 95);
   
-  --color-gold: oklch(65% 0.14 80);
-  --color-gold-rich: oklch(58% 0.12 80);
-  --color-patina: oklch(48% 0.10 188);
+  --color-gold: oklch(52% 0.15 80);
+  --color-gold-rich: oklch(45% 0.13 80);
+  --color-patina: oklch(42% 0.11 188);
 }
 
 /* White Mode (High Contrast Pure White & Black) */
@@ -63,8 +63,8 @@ html[data-theme="white"] {
   --color-text-muted: oklch(35% 0 0);
   --color-text-faint: oklch(50% 0 0);
   
-  --color-gold: oklch(55% 0.13 80);
-  --color-gold-rich: oklch(45% 0.11 80);
-  --color-patina: oklch(40% 0.09 188);
+  --color-gold: oklch(42% 0.13 80);
+  --color-gold-rich: oklch(35% 0.11 80);
+  --color-patina: oklch(35% 0.09 188);
 }
 
