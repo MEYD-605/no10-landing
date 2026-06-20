@@ -40,7 +40,7 @@ heroImage: '../../assets/cover-1x1.png'
 ### 🛡️ Workshop 03 — การสร้าง Custom Skills และการเซ็ต Git Hooks ป้องกัน Token
 * **เวลาทำกิจกรรม:** 2026-06-19 13:20 (GMT+7)
 * **สาระสำคัญ:** บทเรียนเรื่องความปลอดภัยขั้นสูง ป้องกันปัญหาลืมปิดโปรเซสเบื้องหลังผ่านสคริปต์ `pre-spawn-check.sh` และการวางระบบคุมเข้มไม่ให้มีการ Push รหัสลับสำคัญขึ้น GitHub โดยตรงผ่าน Git Hooks ระบบนี้ช่วยให้ประหยัดทรัพยากรไปได้มากกว่า 90%
-* **เอกสารเผยแพร่ฉบับเต็ม:** [อ่านหนังสือบทเรียน Git Hooks (PDF)](/documents/2026-06-19_adding-skills-git-hooks.pdf)
+* **เอกสารเผยแพร่ฉบับเต็ม:** [อ่านหนังสือบทเรียน Git Hooks (PDF)](/docs/preview?file=/documents/2026-06-19_adding-skills-git-hooks.pdf)
 * **รูปภาพปกหนังสือ:**
   
   ![Git Hooks Booklet Cover](/documents/cover-1x1.png)
@@ -48,7 +48,7 @@ heroImage: '../../assets/cover-1x1.png'
 ### 🌐 Workshop 04 — สัญญะสปินเครือข่ายบล็อกเชน (Nova Genesis & gossip protocol)
 * **เวลาทำกิจกรรม:** 2026-06-20 10:27 (GMT+7)
 * **สาระสำคัญ:** การซ่อมแซมบล็อกเชนทดสอบแบบส่วนตัว (Private Sepolia L2) ที่ประสบความล้มเหลวจากการทำ Gossip Sync ข้อมูลที่ขาดความสอดคล้องกันของ Genesis Block เราได้เขียนสคริปต์สำหรับล้างแคชเก่า ตรวจทาน Hash และบังคับซิงค์เพื่อฟื้นคืนฉันทามติ (Consensus Recovery)
-* **เอกสารเผยแพร่ฉบับเต็ม:** [อ่านหนังสือบทเรียน Nova Genesis Recovery (PDF)](/documents/2026-06-20_nova-genesis-sync-recovery.pdf)
+* **เอกสารเผยแพร่ฉบับเต็ม:** [อ่านหนังสือบทเรียน Nova Genesis Recovery (PDF)](/docs/preview?file=/documents/2026-06-20_nova-genesis-sync-recovery.pdf)
 
 ---
 
