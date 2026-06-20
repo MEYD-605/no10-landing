@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold: oklch(84% 0.19 80.46);
+  --color-gold-rich: oklch(77% 0.13 82);
+  --color-patina: oklch(70% 0.12 188);
+  --color-lacquer: oklch(7% 0.006 95);
+  --color-lacquer-deep: oklch(4% 0.004 95);
+  --color-raised: oklch(11% 0.006 95);
+  --color-graphite: oklch(15% 0.008 95);
+  
+  --color-champagne: oklch(91% 0 0);
+  --color-text-warm: oklch(88% 0 0);
+  --color-text-muted: oklch(72% 0 0);
+  --color-text-faint: oklch(62% 0 0);
+  
+  --font-display: "Alumni Sans Pinstripe", system-ui, sans-serif;
+  --font-body: "Albert Sans", system-ui, sans-serif;
+  --font-mono: "SFMono-Regular", "Roboto Mono", monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-lacquer);
+    color: var(--color-text-warm);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-champagne);
+    font-family: var(--font-display);
+  }
+}
+

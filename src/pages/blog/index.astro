@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Blog | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="bg-lacquer text-text-warm font-body selection:bg-gold/20 selection:text-gold min-h-screen flex flex-col">
+		<Header />
+		
+		<main class="flex-grow max-w-4xl w-full mx-auto px-4 py-12 md:py-20 space-y-12">
+			<section class="border-l border-gold/20 pl-6 space-y-2">
+				<h1 class="text-4xl md:text-5xl font-display font-semibold tracking-wide text-champagne">Log Journal</h1>
+				<p class="text-text-muted text-sm max-w-lg">
+					Technical recordings, operational logs, and architectural reflections from LXC 110.
+				</p>
+			</section>
+
+			<section class="space-y-8">
+				{posts.map((post) => (
+					<article class="group bg-raised/35 hover:bg-raised/70 border border-gold/10 hover:border-gold/25 rounded-xs p-6 flex flex-col md:flex-row gap-6 transition-all">
+						{post.data.heroImage && (
+							<div class="w-full md:w-1/3 shrink-0 rounded-xs overflow-hidden border border-gold/5">
+								<Image width={320} height={160} src={post.data.heroImage} alt="" class="object-cover w-full h-full group-hover:scale-[1.02] transition-transform duration-300" />
+							</div>
+						)}
+						<div class="flex-grow flex flex-col justify-between py-1 space-y-3">
+							<div class="space-y-2">
+								<span class="text-xs font-mono text-patina">
+									<FormattedDate date={post.data.pubDate} />
+								</span>
+								<h2 class="text-xl font-sans font-semibold text-champagne group-hover:text-gold transition-colors">
+									<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								</h2>
+								<p class="text-xs text-text-warm leading-relaxed">
+									{post.data.description}
+								</p>
+							</div>
+							<a href={`/blog/${post.id}/`} class="text-xs text-gold font-mono hover:underline inline-block pt-2">
+								Read full log &rarr;
+							</a>
+						</div>
+					</article>
+				))}
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>
+
