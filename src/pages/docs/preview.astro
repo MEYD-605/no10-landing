@@ -1,0 +1,130 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="PDF Document Viewer | No.10 X" description="Interactive online PDF previewer" />
+		<!-- Load PDF.js -->
+		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+	</head>
+	<body class="bg-lacquer text-text-warm font-body selection:bg-gold/20 selection:text-gold min-h-screen flex flex-col">
+		<Header />
+		
+		<main class="flex-grow max-w-5xl w-full mx-auto px-4 py-8 space-y-6">
+			{/* Toolbar */}
+			<div class="flex flex-col sm:flex-row items-center justify-between bg-raised border border-gold/15 p-4 rounded-xs gap-4 font-sans">
+				<div class="space-y-1">
+					<h1 id="doc-title" class="text-xl font-display font-bold text-champagne">Loading Document...</h1>
+					<p class="text-xs text-text-muted">Renderer: canvas-based native PDF.js (No iframe)</p>
+				</div>
+				<div class="flex items-center gap-3">
+					<a href="/blog/oracle-council-workshops" class="px-4 py-1.5 border border-gold text-gold hover:bg-gold/10 font-sans text-xs rounded-xs transition-colors cursor-pointer">
+						Back to Workshops
+					</a>
+					<a id="download-btn" href="#" download class="px-4 py-1.5 bg-gold text-[oklch(7%_0.006_95)] hover:bg-gold-rich font-sans text-xs font-semibold rounded-xs transition-colors cursor-pointer">
+						Download PDF
+					</a>
+				</div>
+			</div>
+
+			{/* PDF Container */}
+			<div class="bg-raised-deep border border-gold/15 rounded-xs p-4 md:p-8 flex justify-center items-center overflow-auto min-h-[500px]">
+				<div id="pdf-viewer-container" class="space-y-6 w-full flex flex-col items-center">
+					<div id="loading-indicator" class="text-gold font-mono text-sm animate-pulse">
+						Initializing PDF.js engine & parsing pages...
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<Footer />
+
+		<script is:inline>
+			// Get PDF url from query string
+			const urlParams = new URLSearchParams(window.location.search);
+			const pdfUrl = urlParams.get('file');
+			
+			if (!pdfUrl) {
+				document.getElementById('loading-indicator').textContent = 'Error: No PDF file specified in query string (?file=...)';
+			} else {
+				// Set title and download links
+				const filename = pdfUrl.split('/').pop().replace('.pdf', '').replace(/_/g, ' ');
+				document.getElementById('doc-title').textContent = filename.toUpperCase();
+				document.getElementById('download-btn').href = pdfUrl;
+
+				// PDFJS config
+				const pdfjsLib = window['pdfjs-dist/build/pdf'];
+				pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+				let pdfDoc = null;
+				
+				async function renderPDF() {
+					try {
+						const loadingTask = pdfjsLib.getDocument(pdfUrl);
+						pdfDoc = await loadingTask.promise;
+						
+						const container = document.getElementById('pdf-viewer-container');
+						container.innerHTML = ''; // Clear loading message
+
+						// Render all pages
+						for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+							const page = await pdfDoc.getPage(pageNum);
+							
+							// Setup page container for padding and border
+							const pageWrapper = document.createElement('div');
+							pageWrapper.className = 'relative border border-gold/10 bg-black/40 shadow-xl p-2 rounded-xs flex flex-col items-center max-w-full';
+							
+							// Page number indicator at top-left
+							const pageLabel = document.createElement('div');
+							pageLabel.className = 'absolute top-2 left-2 text-[10px] font-mono text-patina bg-black/60 px-2 py-0.5 rounded-xs border border-patina/20 z-10';
+							pageLabel.textContent = `PAGE ${pageNum} / ${pdfDoc.numPages}`;
+							pageWrapper.appendChild(pageLabel);
+
+							const canvas = document.createElement('canvas');
+							canvas.className = 'max-w-full h-auto rounded-xs';
+							pageWrapper.appendChild(canvas);
+							container.appendChild(pageWrapper);
+
+							const ctx = canvas.getContext('2d');
+							
+							// Standard viewport sizing
+							const originalViewport = page.getViewport({ scale: 1.5 });
+							
+							// Render quality scale
+							const outputScale = window.devicePixelRatio || 1;
+							canvas.width = Math.floor(originalViewport.width * outputScale);
+							canvas.height = Math.floor(originalViewport.height * outputScale);
+							canvas.style.width = Math.floor(originalViewport.width) + "px";
+							canvas.style.height = Math.floor(originalViewport.height) + "px";
+
+							const transform = outputScale !== 1
+								? [outputScale, 0, 0, outputScale, 0, 0]
+								: null;
+
+							const renderContext = {
+								canvasContext: ctx,
+								transform: transform,
+								viewport: originalViewport
+							};
+							
+							await page.render(renderContext).promise;
+						}
+					} catch (error) {
+						console.error('Error rendering PDF:', error);
+						document.getElementById('pdf-viewer-container').innerHTML = `
+							<div class="text-red-500 font-mono text-sm border border-red-500/20 bg-red-500/5 px-4 py-3 rounded-xs">
+								Failed to render PDF: ${error.message}
+							</div>
+						`;
+					}
+				}
+
+				renderPDF();
+			}
+		</script>
+	</body>
+</html>
