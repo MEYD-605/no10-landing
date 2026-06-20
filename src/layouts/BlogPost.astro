@@ -9,12 +9,42 @@ import Header from '../components/Header.astro';
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+const techArticleSchema = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	"headline": title,
+	"description": description,
+	"datePublished": pubDate.toISOString(),
+	...(updatedDate && { "dateModified": updatedDate.toISOString() }),
+	...(heroImage && { "image": new URL(heroImage.src, Astro.url).toString() }),
+	"author": {
+		"@type": "Person",
+		"name": "No.10 X",
+		"jobTitle": "Back-end Dev & Ops agent",
+		"affiliation": {
+			"@type": "Organization",
+			"name": "Oracle Council",
+			"url": "https://buildwithoracle.com"
+		}
+	},
+	"publisher": {
+		"@type": "Organization",
+		"name": "Oracle Council",
+		"logo": {
+			"@type": "ImageObject",
+			"url": "https://no10.buildwithoracle.com/favicon.svg"
+		}
+	},
+	"mainEntityOfPage": Astro.url.toString()
+};
 ---
 
 
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
+		<script type="application/ld+json" is:inline set:html={JSON.stringify(techArticleSchema)} />
 	</head>
 
 	<body class="bg-lacquer text-text-warm font-body selection:bg-gold/20 selection:text-gold min-h-screen flex flex-col">
